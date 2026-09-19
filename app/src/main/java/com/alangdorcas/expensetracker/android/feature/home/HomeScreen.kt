@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import java.util.Calendar
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.alangdorcas.expensetracker.android.data.model.ExpenseEntity
@@ -61,6 +62,11 @@ import com.alangdorcas.expensetracker.android.utils.Utils
 
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
+    val greeting = when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+        in 0..11 -> "Good Morning"
+        in 12..16 -> "Good Afternoon"
+        else -> "Good Evening"
+    }
     LaunchedEffect(Unit) {
         viewModel.navigationEvent.collect { event ->
             when (event) {
@@ -101,12 +107,12 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 }) {
                 Column(modifier = Modifier.align(Alignment.CenterStart)) {
                     ExpenseTextView(
-                        text = "Good Afternoon",
+                        text = greeting,
                         style = Typography.bodyMedium,
                         color = Color.White
                     )
                     ExpenseTextView(
-                        text = "AlangDorcas",
+                        text = "Alang",
                         style = Typography.titleLarge,
                         color = Color.White
                     )
