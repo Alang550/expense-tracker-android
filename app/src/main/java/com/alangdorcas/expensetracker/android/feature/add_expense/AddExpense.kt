@@ -196,31 +196,24 @@ fun DataForm(
         TitleComponent(title = "name")
         ExpenseDropDown(
             if (isIncome) listOf(
-                "Paypal",
                 "Salary",
                 "Freelance",
+                "Allowance",
                 "Investments",
                 "Bonus",
-                "Rental Income",
                 "Other Income"
             ) else listOf(
-                "Grocery",
-                "Netflix",
+                "Groceries",
                 "Rent",
-                "Paypal",
-                "Starbucks",
-                "Shopping",
                 "Transport",
                 "Utilities",
+                "Tuition",
                 "Dining Out",
                 "Entertainment",
                 "Healthcare",
-                "Insurance",
                 "Subscriptions",
-                "Education",
-                "Debt Payments",
+                "Savings",
                 "Gifts & Donations",
-                "Travel",
                 "Other Expenses"
             ),
             onItemSelected = {
@@ -234,14 +227,14 @@ fun DataForm(
                 amount.value = newValue.filter { it.isDigit() || it == '.' }
             }, textStyle = TextStyle(color = Color.Black),
             visualTransformation = { text ->
-                val out = "$" + text.text
+                val out = "KSh " + text.text
                 val currencyOffsetTranslator = object : OffsetMapping {
                     override fun originalToTransformed(offset: Int): Int {
-                        return offset + 1
+                        return offset + 4
                     }
 
                     override fun transformedToOriginal(offset: Int): Int {
-                        return if (offset > 0) offset - 1 else 0
+                        return if (offset >= 4) offset - 4 else 0
                     }
                 }
 
